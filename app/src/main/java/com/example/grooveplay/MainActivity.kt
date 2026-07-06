@@ -4,36 +4,44 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import androidx.activity.viewModels
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.getValue
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.grooveplay.navigation.GrooveWaveNavGraph
 import com.example.grooveplay.ui.theme.GrooveplayTheme
+import com.example.grooveplay.viewmodel.SplashViewModel
+import com.example.grooveplay.viewmodel.ThemeMode
+import com.example.grooveplay.viewmodel.ThemeViewModel
 
 class MainActivity : ComponentActivity() {
+    private val splashViewModel: SplashViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen().apply {
+            setKeepOnScreenCondition {
+                !splashViewModel.isReady.value
+            }
+        }
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            GrooveplayTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        admission = "Ct201/111945/23",
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+            val themeViewModel: ThemeViewModel = viewModel()
+            val themeMode by themeViewModel.themeMode.collectAsStateWithLifecycle()
+
+            val darkTheme = when (themeMode) {
+                ThemeMode.DARK -> true
+                ThemeMode.LIGHT -> false
+                ThemeMode.SYSTEM -> isSystemInDarkTheme()
+            }
+
+            GrooveplayTheme (darkTheme = darkTheme) {
+                GrooveWaveNavGraph()
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, admission: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!  $admission ",
-        modifier = modifier
-    )
-}
+

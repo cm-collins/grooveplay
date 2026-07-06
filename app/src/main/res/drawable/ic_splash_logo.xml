@@ -1,0 +1,87 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+
+    <group android:name="logo_group" android:pivotX="100" android:pivotY="100">
+
+        <!-- Scaled for circular safe zone -->
+        <group android:scaleX="0.7" android:scaleY="0.7" android:pivotX="100" android:pivotY="100">
+
+            <!-- Vinyl Icon (Centered at top) -->
+            <group android:name="vinyl_rings" android:translateX="100" android:translateY="75">
+                <path
+                    android:pathData="M0,0m-52,0a52,52 0,1 1,104 0a52,52 0,1 1,-104 0"
+                    android:fillColor="@color/splash_content_color"
+                    android:fillAlpha="0.08"/>
+                <path
+                    android:pathData="M0,0m-48,0a48,48 0,1 1,96 0a48,48 0,1 1,-96 0"
+                    android:fillColor="@color/splash_content_color"
+                    android:fillAlpha="0.15"/>
+                <path
+                    android:pathData="M0,0m-42,0a42,42 0,1 1,84 0a42,42 0,1 1,-84 0"
+                    android:strokeWidth="1.2"
+                    android:strokeColor="@color/splash_content_color"
+                    android:strokeAlpha="0.4"
+                    android:fillColor="#00000000"/>
+                <path
+                    android:pathData="M0,0m-16,0a16,16 0,1 1,32 0a16,16 0,1 1,-32 0"
+                    android:fillColor="@color/splash_content_color"/>
+                <path
+                    android:pathData="M-3.5,-4.5 L6,0 L-3.5,4.5 Z"
+                    android:fillColor="@color/splash_background_dark"/>
+            </group>
+
+            <!--
+                Refined Wordmark "GROOVEPLAY"
+                Using widely spaced, thin-modern geometric letterforms.
+                Each letter is in its own group to ensure ZERO overlap.
+            -->
+            <group android:name="text_group" android:translateX="100" android:translateY="160">
+                <!-- G -->
+                <group android:translateX="-82">
+                    <path android:fillColor="@color/splash_content_color" android:pathData="M0,-6 a6,6 0,1 0,0 12 h5 v-5 h-4 v2 h2 v1 h-3 a4,4 0,1 1,0 -8 h5 v-2 Z" />
+                </group>
+                <!-- R -->
+                <group android:translateX="-64">
+                    <path android:fillColor="@color/splash_content_color" android:pathData="M0,-6 v12 h2 v-5 h2 l3,5 h3 l-3.5,-5.5 a4,4 0,0 0,-1.5 -6.5 Z M2,-4 h2 a2,2 0,1 1,0 4 h-2 Z" />
+                </group>
+                <!-- O -->
+                <group android:translateX="-46">
+                    <path android:fillColor="@color/splash_content_color" android:pathData="M0,-6 a6,6 0,1 0,0 12 a6,6 0,1 0,0 -12 M0,-4 a4,4 0,1 1,0 8 a4,4 0,1 1,0 -8" />
+                </group>
+                <!-- O -->
+                <group android:translateX="-28">
+                    <path android:fillColor="@color/splash_content_color" android:pathData="M0,-6 a6,6 0,1 0,0 12 a6,6 0,1 0,0 -12 M0,-4 a4,4 0,1 1,0 8 a4,4 0,1 1,0 -8" />
+                </group>
+                <!-- V -->
+                <group android:translateX="-10">
+                    <path android:fillColor="@color/splash_content_color" android:pathData="M-4,-6 l4,12 l4,-12 h-2.5 l-1.5,4.5 l-1.5,-4.5 Z" />
+                </group>
+                <!-- E -->
+                <group android:translateX="8">
+                    <path android:fillColor="@color/splash_content_color" android:pathData="M0,-6 v12 h8 v-2 h-6 v-3 h5 v-2 h-5 v-3 h6 v-2 Z" />
+                </group>
+                <!-- P -->
+                <group android:translateX="26">
+                    <path android:fillColor="@color/splash_content_color" android:pathData="M0,-6 v12 h2 v-5 h3 a4,4 0,1 0,0 -7 Z M2,-4 h3 a2,2 0,0 1,0 4 h-3 Z" />
+                </group>
+                <!-- L -->
+                <group android:translateX="44">
+                    <path android:fillColor="@color/splash_content_color" android:pathData="M0,-6 v12 h8 v-2 h-6 v-10 Z" />
+                </group>
+                <!-- A -->
+                <group android:translateX="62">
+                    <path android:fillColor="@color/splash_content_color" android:pathData="M0,-6 l-4.5,12 h2.5 l0.8,-2.5 h3.4 l0.8,2.5 h2.5 l-4.5,-12 Z M0.2,-1 l1.1,0 l-0.55,-1.8 Z" />
+                </group>
+                <!-- Y -->
+                <group android:translateX="80">
+                    <path android:fillColor="@color/splash_content_color" android:pathData="M0,-6 l4,5 v7 h2 v-7 l4,-6 h-2.5 l-2.5,4 l-2.5,-4 Z" />
+                </group>
+            </group>
+        </group>
+
+    </group>
+
+</vector>

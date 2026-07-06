@@ -1,0 +1,44 @@
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:drawable="@drawable/ic_splash_logo">
+
+    <!-- Animate the entire group for a "fade-in and scale-up" entry -->
+    <target android:name="logo_group">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:propertyName="alpha"
+                    android:duration="1000"
+                    android:valueFrom="0"
+                    android:valueTo="1"
+                    android:interpolator="@android:anim/accelerate_decelerate_interpolator" />
+                <objectAnimator
+                    android:propertyName="scaleX"
+                    android:duration="800"
+                    android:valueFrom="0.8"
+                    android:valueTo="1.0"
+                    android:interpolator="@android:anim/overshoot_interpolator" />
+                <objectAnimator
+                    android:propertyName="scaleY"
+                    android:duration="800"
+                    android:valueFrom="0.8"
+                    android:valueTo="1.0"
+                    android:interpolator="@android:anim/overshoot_interpolator" />
+            </set>
+        </aapt:attr>
+    </target>
+
+    <!-- Rotate the vinyl rings slightly for a subtle "spinning" effect -->
+    <target android:name="vinyl_rings">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:propertyName="rotation"
+                android:duration="2000"
+                android:valueFrom="0"
+                android:valueTo="360"
+                android:repeatCount="infinite"
+                android:interpolator="@android:anim/linear_interpolator" />
+        </aapt:attr>
+    </target>
+
+</animated-vector>
