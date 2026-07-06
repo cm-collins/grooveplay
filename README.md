@@ -24,8 +24,8 @@ A premium music distribution and streaming platform built with modern Android te
 - **Dependency Management**: Gradle Version Catalogs (TOML)
 
 ## 📖 Implementation Guides
-- [Enterprise SplashScreen Guide](.artifacts/20260624-182834-1827838a-72df-495c-97b9-d80b4d86aed0/splash_enterprise_guide.artifact.md) - Deep dive into how we handle high-end app launches.
-- [Project Walkthrough](.artifacts/20260624-182834-1827838a-72df-495c-97b9-d80b4d86aed0/walkthrough.artifact.md) - Detailed summary of recent feature additions.
+- [Enterprise SplashScreen Guide](docs/splash_guide.md) - Deep dive into how we handle high-end app launches.
+- [Project Walkthrough](docs/walkthrough.md) - Detailed summary of recent feature additions.
 
 ---
 *Built with ❤️ for a Android Mobile Engineering.*
