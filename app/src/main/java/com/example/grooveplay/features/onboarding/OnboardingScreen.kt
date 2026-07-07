@@ -26,6 +26,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 
+import com.example.grooveplay.core.ui.components.GrooveButton
+
 @Composable
 fun OnboardingScreen(onFinished: () -> Unit) {
     val pagerState = rememberPagerState(pageCount = { onboardingPages.size })
@@ -68,7 +70,8 @@ fun OnboardingScreen(onFinished: () -> Unit) {
                 OnboardingPageUI(onboardingPages[page])
             }
 
-            Button(
+            GrooveButton(
+                text = if (pagerState.currentPage == onboardingPages.size - 1) "Get Started" else "Next",
                 onClick = {
                     if (pagerState.currentPage < onboardingPages.size - 1) {
                         scope.launch {
@@ -78,22 +81,10 @@ fun OnboardingScreen(onFinished: () -> Unit) {
                         onFinished()
                     }
                 },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 24.dp)
-                    .height(56.dp),
-                shape = RoundedCornerShape(28.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = currentThemeColor,
-                    contentColor = if (pagerState.currentPage == 2) Color.Black else Color.White
-                )
-            ) {
-                Text(
-                    text = if (pagerState.currentPage == onboardingPages.size - 1) "Get Started" else "Next",
-                    fontWeight = FontWeight.Bold,
-                    style = MaterialTheme.typography.titleMedium
-                )
-            }
+                modifier = Modifier.padding(horizontal = 24.dp),
+                containerColor = currentThemeColor,
+                contentColor = if (pagerState.currentPage == 2) Color.Black else Color.White,
+            )
 
             Spacer(modifier = Modifier.height(32.dp))
 
