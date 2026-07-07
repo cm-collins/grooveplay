@@ -25,3 +25,5 @@ dependencyResolutionManagement {
 rootProject.name = "Grooveplay"
 include(":app")
 include(":core:ui")
+include(":core:data")
+include(":core:model")

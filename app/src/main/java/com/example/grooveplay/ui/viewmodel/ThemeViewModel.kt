@@ -3,25 +3,20 @@ package com.example.grooveplay.ui.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.grooveplay.data.local.UserPreferences
+import com.example.grooveplay.core.data.repository.UserPreferencesRepository
+import com.example.grooveplay.core.data.repository.UserRepository
+import com.example.grooveplay.core.model.ThemeMode
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 /**
- * The three theme options exposed in Profile > Appearance > Theme.
- */
-enum class ThemeMode {
-    SYSTEM, LIGHT, DARK
-}
-
-/**
- * Holds the app's current theme selection as UI state, backed by DataStore.
+ * Holds the app's current theme selection as UI state.
  */
 class ThemeViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val preferences = UserPreferences(application)
+    private val repository: UserRepository = UserPreferencesRepository(application)
 
     private val _themeMode = MutableStateFlow(ThemeMode.SYSTEM)
     val themeMode: StateFlow<ThemeMode> = _themeMode.asStateFlow()
@@ -31,18 +26,17 @@ class ThemeViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         viewModelScope.launch {
-            preferences.themeMode
-                .collect { mode ->
-                    _themeMode.value = mode
-                    _isThemeLoaded.value = true
-                }
+            repository.themeMode.collect { mode ->
+                _themeMode.value = mode
+                _isThemeLoaded.value = true
+            }
         }
     }
 
     fun setThemeMode(mode: ThemeMode) {
         _themeMode.value = mode
         viewModelScope.launch {
-            preferences.setThemeMode(mode)
+            repository.setThemeMode(mode)
         }
     }
 

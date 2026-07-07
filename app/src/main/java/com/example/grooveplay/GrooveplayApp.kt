@@ -9,7 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.grooveplay.features.splash.viewmodel.SplashViewModel
 import com.example.grooveplay.navigation.GrooveWaveNavGraph
 import com.example.grooveplay.core.ui.theme.GrooveplayTheme
-import com.example.grooveplay.ui.viewmodel.ThemeMode
+import com.example.grooveplay.core.model.ThemeMode
 import com.example.grooveplay.ui.viewmodel.ThemeViewModel
 
 /**
