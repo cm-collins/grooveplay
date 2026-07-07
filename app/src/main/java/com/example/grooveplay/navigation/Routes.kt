@@ -8,5 +8,5 @@ package com.example.grooveplay.navigation
 
 object Routes {
     const val HOME = "home"
-    //other screens
+    const val ONBOARDING = "onboarding"
 }

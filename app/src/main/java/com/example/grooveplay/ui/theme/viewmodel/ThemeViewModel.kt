@@ -1,48 +1,43 @@
-package com.example.grooveplay.viewmodel
+package com.example.grooveplay.ui.theme.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.grooveplay.data.local.ThemePreferences
+import com.example.grooveplay.data.local.UserPreferences
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
 /**
  * The three theme options exposed in Profile > Appearance > Theme.
- * SYSTEM follows the device setting; LIGHT/DARK override it explicitly.
  */
 enum class ThemeMode {
     SYSTEM, LIGHT, DARK
 }
 
 /**
- * Holds the app's current theme selection as UI state, backed by DataStore
- * so the choice survives app restarts.
- *
- * This is the "VM" in MVVM for anything theme-related: the Composable
- * layer (View) only ever reads [themeMode] / [isThemeLoaded] and calls
- * [setThemeMode] — it never touches persistence directly.
+ * Holds the app's current theme selection as UI state, backed by DataStore.
  */
 class ThemeViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val preferences = ThemePreferences(application)
+    private val preferences = UserPreferences(application)
 
     private val _themeMode = MutableStateFlow(ThemeMode.SYSTEM)
     val themeMode: StateFlow<ThemeMode> = _themeMode.asStateFlow()
 
-    // True once the first value has been read from DataStore. SplashScreen
-    // waits on this so it never shows a flash of the wrong theme.
-    private val _isThemeLoaded = MutableStateFlow(false)
+    private val _isThemeLoaded = MutableStateFlow(value = false)
     val isThemeLoaded: StateFlow<Boolean> = _isThemeLoaded.asStateFlow()
 
     init {
         viewModelScope.launch {
-            preferences.themeMode.collect { mode ->
-                _themeMode.value = mode
-                _isThemeLoaded.value = true
-            }
+            preferences.themeMode
+                .catch { emit(ThemeMode.SYSTEM) }
+                .collect { mode ->
+                    _themeMode.value = mode
+                    _isThemeLoaded.value = true
+                }
         }
     }
 

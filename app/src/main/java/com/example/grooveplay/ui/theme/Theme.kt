@@ -6,34 +6,25 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import com.example.grooveplay.viewmodel.ThemeViewModel
 
 private val GrooveplayDarkColorScheme = darkColorScheme(
     primary = Primary,
     onPrimary = Color.White,
     primaryContainer = DarkSurface,
     onPrimaryContainer = DarkTextPrimary,
-
     secondary = PrimaryLight,
     onSecondary = Color.White,
-
     tertiary = Amber,
     onTertiary = Color.Black,
-
     background = DarkBackground,
     onBackground = DarkTextPrimary,
-
     surface = DarkCard,
     onSurface = DarkTextPrimary,
-
     surfaceVariant = DarkSurface,
     onSurfaceVariant = DarkTextSecondary,
-
     surfaceTint = Primary,
-
     error = DarkAccentRose,
     onError = Color.White,
-
     outline = DarkBorder,
     outlineVariant = DarkElevated,
 )
@@ -43,49 +34,38 @@ private val GrooveplayLightColorScheme = lightColorScheme(
     onPrimary = Color.White,
     primaryContainer = LightSurface,
     onPrimaryContainer = LightTextPrimary,
-
     secondary = PrimaryLight,
     onSecondary = Color.White,
-
     tertiary = LightAmber,
     onTertiary = Color.White,
-
     background = LightBackground,
     onBackground = LightTextPrimary,
-
     surface = LightCard,
     onSurface = LightTextPrimary,
-
     surfaceVariant = LightSurface,
     onSurfaceVariant = LightTextSecondary,
-
     surfaceTint = Primary,
-
     error = LightAccentRose,
     onError = Color.White,
-
     outline = LightBorder,
     outlineVariant = LightElevated,
 )
 
 /**
- * GrooveWave app theme.
+ * Grooveplay app theme.
  *
- * @param darkTheme whether to use the dark palette. Wire this to
- *   [ThemeViewModel]'s state rather than always following the system
- *   default, since the Figma design has an in-app theme toggle
- *   (Profile > Appearance > Theme) that overrides system setting.
+ * @param darkTheme whether to use the dark palette.
  */
 @Composable
 fun GrooveplayTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     val colorScheme = if (darkTheme) GrooveplayDarkColorScheme else GrooveplayLightColorScheme
 
     MaterialTheme(
         colorScheme = colorScheme,
         typography = GrooveplayTypography,
-        content = content
+        content = content,
     )
 }
