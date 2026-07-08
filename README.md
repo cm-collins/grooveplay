@@ -37,6 +37,7 @@ GroovePlay is built using **Clean Architecture** principles and a **Multi-Module
 - **Build System**: Gradle Kotlin DSL + Version Catalogs (TOML) + KSP
 
 ## 📖 Documentation
+- [Contributing Guidelines](CONTRIBUTING.md) - Learn how to contribute to the project.
 - [Multi-Module Refactoring Walkthrough](docs/walkthrough.md) - Summary of the architectural transition.
 - [Enterprise SplashScreen Guide](docs/splash_guide.md) - Deep dive into high-end app launches.
 
