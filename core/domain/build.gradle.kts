@@ -6,21 +6,14 @@ plugins {
 }
 
 android {
-    namespace = "com.example.grooveplay.core.data"
+    namespace = "com.example.grooveplay.core.domain"
     compileSdk = 35
 
     defaultConfig {
         minSdk = 24
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
     }
 
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-        }
-    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -32,9 +25,12 @@ android {
 
 dependencies {
     implementation(project(":core:model"))
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.datastore.preferences)
-
+    implementation(project(":core:data"))
+    
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+    implementation(libs.javax.inject)
+    
+    implementation(libs.androidx.core.ktx)
+    testImplementation(libs.junit)
 }

@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 /**
  * A standardized, premium button for the GroovePlay design system.
@@ -43,8 +44,9 @@ fun GrooveButton(
     ) {
         Text(
             text = text,
-            fontWeight = FontWeight.Bold,
             style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.Bold,
+            letterSpacing = 0.5.sp
         )
     }
 }

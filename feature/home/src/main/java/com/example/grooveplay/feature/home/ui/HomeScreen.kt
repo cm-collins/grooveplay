@@ -1,4 +1,4 @@
-package com.example.grooveplay.features.home.screens
+package com.example.grooveplay.feature.home.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -197,7 +197,7 @@ private fun GrooveBottomNavigation() {
         NavigationBarItem(
             selected = false,
             onClick = { },
-            icon = { Icon(Icons.Default.LibraryMusic, null) },
+            icon = { Icon(Icons.Default.List, null) },
             label = { Text("Library") }
         )
         NavigationBarItem(

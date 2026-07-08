@@ -3,43 +3,33 @@ package com.example.grooveplay.navigation
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import com.example.grooveplay.features.home.screens.HomeScreen
-import com.example.grooveplay.features.onboarding.OnboardingScreen
+import com.example.grooveplay.feature.home.navigation.HOME_ROUTE
+import com.example.grooveplay.feature.home.navigation.homeScreen
+import com.example.grooveplay.feature.onboarding.navigation.ONBOARDING_ROUTE
+import com.example.grooveplay.feature.onboarding.navigation.onboardingScreen
 
 /**
  * Main navigation graph for the application.
- *
- * @param navController The navigation controller to manage app navigation.
- * @param startDestination The initial screen to display (Home or Onboarding).
- * @param onOnboardingFinished Callback executed when the user completes onboarding.
  */
 @Composable
 fun GrooveWaveNavGraph(
     navController: NavHostController,
-    startDestination: String,
-    onOnboardingFinished: () -> Unit,
+    isOnboardingCompleted: Boolean,
 ) {
     NavHost(
         navController = navController,
-        startDestination = startDestination,
+        startDestination = if (isOnboardingCompleted) HOME_ROUTE else ONBOARDING_ROUTE,
     ) {
-        composable(Routes.ONBOARDING) {
-            OnboardingScreen(
-                onFinished = {
-                    onOnboardingFinished()
-                    navController.navigate(Routes.HOME) {
-                        // Remove onboarding from backstack so users can't navigate back to it
-                        popUpTo(Routes.ONBOARDING) {
-                            inclusive = true
-                        }
+        onboardingScreen(
+            onFinished = {
+                navController.navigate(HOME_ROUTE) {
+                    popUpTo(ONBOARDING_ROUTE) {
+                        inclusive = true
                     }
-                },
-            )
-        }
+                }
+            },
+        )
 
-        composable(Routes.HOME) {
-            HomeScreen()
-        }
+        homeScreen()
     }
 }

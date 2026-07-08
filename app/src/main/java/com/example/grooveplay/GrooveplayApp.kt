@@ -3,38 +3,39 @@ package com.example.grooveplay
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
-import com.example.grooveplay.features.splash.viewmodel.SplashViewModel
-import com.example.grooveplay.navigation.GrooveWaveNavGraph
-import com.example.grooveplay.core.ui.theme.GrooveplayTheme
 import com.example.grooveplay.core.model.ThemeMode
-import com.example.grooveplay.ui.viewmodel.ThemeViewModel
+import com.example.grooveplay.core.ui.theme.GrooveplayTheme
+import com.example.grooveplay.core.ui.viewmodel.ThemeViewModel
+import com.example.grooveplay.feature.splash.viewmodel.SplashViewModel
+import com.example.grooveplay.navigation.GrooveWaveNavGraph
 
-/**
- * Top-level Composable that orchestrates the app's theme and navigation.
- */
 @Composable
 fun GrooveplayApp(
     splashViewModel: SplashViewModel,
-    themeViewModel: ThemeViewModel = viewModel(),
+    themeViewModel: ThemeViewModel = hiltViewModel()
 ) {
     val themeMode by themeViewModel.themeMode.collectAsStateWithLifecycle()
-    val startDestination by splashViewModel.startDestination.collectAsStateWithLifecycle()
+    val isThemeLoaded by themeViewModel.isThemeLoaded.collectAsStateWithLifecycle()
+
+    if (!isThemeLoaded) return
 
     val darkTheme = when (themeMode) {
-        ThemeMode.DARK -> true
         ThemeMode.LIGHT -> false
+        ThemeMode.DARK -> true
         ThemeMode.SYSTEM -> isSystemInDarkTheme()
     }
 
     GrooveplayTheme(darkTheme = darkTheme) {
-        startDestination?.let { destination ->
+        val navController = rememberNavController()
+        val isOnboardingCompleted by splashViewModel.isOnboardingCompleted.collectAsStateWithLifecycle()
+
+        isOnboardingCompleted?.let { completed ->
             GrooveWaveNavGraph(
-                navController = rememberNavController(),
-                startDestination = destination,
-                onOnboardingFinished = splashViewModel::completeOnboarding,
+                navController = navController,
+                isOnboardingCompleted = completed
             )
         }
     }

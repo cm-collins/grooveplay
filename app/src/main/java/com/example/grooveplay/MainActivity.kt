@@ -6,15 +6,13 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.example.grooveplay.features.splash.viewmodel.SplashViewModel
+import com.example.grooveplay.feature.splash.viewmodel.SplashViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * Entry point of the application.
- *
- * Adheres to:
- * - SOLID (Single Responsibility): Handles only Activity-level lifecycle and Splash integration.
- * - KISS: Manual dependency management for simplicity and performance.
  */
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val splashViewModel: SplashViewModel by viewModels()
@@ -23,7 +21,7 @@ class MainActivity : ComponentActivity() {
         // Official SplashScreen API integration
         installSplashScreen().apply {
             setKeepOnScreenCondition {
-                !splashViewModel.isReady.value
+                splashViewModel.isOnboardingCompleted.value == null
             }
         }
 

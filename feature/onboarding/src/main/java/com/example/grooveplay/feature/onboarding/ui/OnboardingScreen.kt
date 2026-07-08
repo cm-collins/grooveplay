@@ -1,4 +1,4 @@
-package com.example.grooveplay.features.onboarding
+package com.example.grooveplay.feature.onboarding.ui
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,12 +23,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.grooveplay.core.ui.components.GrooveButton
+import com.example.grooveplay.feature.onboarding.viewmodel.OnboardingViewModel
 import kotlinx.coroutines.launch
 
-import com.example.grooveplay.core.ui.components.GrooveButton
-
 @Composable
-fun OnboardingScreen(onFinished: () -> Unit) {
+fun OnboardingScreen(
+    onFinished: () -> Unit,
+    viewModel: OnboardingViewModel = hiltViewModel()
+) {
     val pagerState = rememberPagerState(pageCount = { onboardingPages.size })
     val scope = rememberCoroutineScope()
 
@@ -40,6 +43,11 @@ fun OnboardingScreen(onFinished: () -> Unit) {
         label = "themeColor"
     )
 
+    val handleOnFinished = {
+        viewModel.completeOnboarding()
+        onFinished()
+    }
+
     Scaffold(
         topBar = {
             Box(
@@ -48,7 +56,7 @@ fun OnboardingScreen(onFinished: () -> Unit) {
                     .padding(16.dp),
                 contentAlignment = Alignment.TopEnd
             ) {
-                TextButton(onClick = onFinished) {
+                TextButton(onClick = handleOnFinished) {
                     Text(
                         text = "Skip for now",
                         color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -78,7 +86,7 @@ fun OnboardingScreen(onFinished: () -> Unit) {
                             pagerState.animateScrollToPage(pagerState.currentPage + 1)
                         }
                     } else {
-                        onFinished()
+                        handleOnFinished()
                     }
                 },
                 modifier = Modifier.padding(horizontal = 24.dp),
